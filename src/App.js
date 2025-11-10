@@ -74,7 +74,7 @@ function App() {
         </h2>
         <div className="about-content">
           <p>
-            Computer Engineering student with experience in software development and web technologies. 
+            Computer Engineering student at Mcgill University, with experience in software development and web technologies. 
             <br />
             <br />
             Passionate about creating innovative solutions and continuously learning new technologies.
