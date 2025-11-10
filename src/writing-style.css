@@ -1,0 +1,16 @@
+.highlight-name {
+  color: #12c46b;
+  font-weight: bold;
+  /* responsive highlight name size */
+  /* increased max to make the highlighted name larger on larger screens */
+  font-size: clamp(1.4rem, 8vw, 3.6rem);
+}
+
+.highlight-name:hover {
+  text-shadow: 0 0 10px #12c46b, 0 0 20px #12c46b, 0 0 30px #12c46b;
+}
+
+.bigger-name {
+  /* Make greeting text responsive and larger */
+  font-size: clamp(1.2rem, 7vw, 2.6rem);
+}

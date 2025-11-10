@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500&family=Raleway&display=swap');
+
+/* Remove all previous nav-item color and hover styles */
+
+.nav-item a {
+    text-decoration: none;
+    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+}
+
+
+.nav-list .nav-item:nth-child(1) a { color: #40E0D0; } /* Turquoise */
+.nav-list .nav-item:nth-child(2) a { color: #30C0C0; }
+.nav-list .nav-item:nth-child(3) a { color: #20A0B0; }
+.nav-list .nav-item:nth-child(4) a { color: #1080A0; } /* Blue */
+
+/* Set the hover effect */
+.nav-list .nav-item:hover a {
+    color: #ff9900;
+    text-shadow: 0 0 8px #ff9900, 0 0 16px #ff9900;
+}
+
+.navbar{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(25, 25, 25, 0.75);
+    backdrop-filter: blur(10px);
+    padding: 0 18px;
+    font-family: "Astro", sans-serif;
+    width: 100%; /* use 100% instead of 100vw to avoid horizontal overflow on mobile */
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+    /* make navbar fixed so it remains at top while scrolling */
+    position: fixed;
+    top: 0;
+    height: var(--navbar-height, 72px);
+    z-index: 10000;
+ }
+
+
+
+
+.nav-list{
+    list-style: none;
+    display:flex;
+    gap:24px;
+    flex-wrap: nowrap; /* keep items in a single row; allow horizontal scroll on small screens */
+    justify-content: center;
+    margin: 0;
+    padding: 0 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.nav-item{
+    cursor: pointer;
+    font-size: clamp(1.1rem, 2.6vw, 2.2rem); /* increased font sizes */
+    transition: 0.25s;
+    padding: calc(var(--navbar-height, 72px) * 0.20) 12px; /* slightly more padding */
+    white-space: nowrap; /* avoid breaking nav labels */
+}
+
+.nav-item a {
+    display: inline-block; /* make clickable area consistent */
+    padding: inherit;
+}
+
+@media (max-width: 420px) {
+    .navbar { padding: 6px 10px; height: calc(var(--navbar-height, 72px) - 10px); }
+    .nav-list { gap: 12px; }
+    .nav-item { font-size: clamp(0.85rem, 4.4vw, 1.05rem); padding:6px 8px; }
+}
+
+/* Desktop-specific tuning: increase spacing and font size on wide screens */
+@media (min-width: 1200px) {
+  .nav-list { gap: 40px; }
+  .nav-item { font-size: clamp(1.4rem, 1.8vw, 2.6rem); padding: calc(var(--navbar-height,72px) * 0.28) 16px; }
+}/* visually hide horizontal scrollbar but keep scrolling functional */
+.nav-list::-webkit-scrollbar { height: 6px; }
+.nav-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
+.nav-list { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.12) transparent; }
+
+
+

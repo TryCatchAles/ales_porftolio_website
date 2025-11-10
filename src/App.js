@@ -1,23 +1,99 @@
-import logo from './logo.svg';
+import Navbar from './Navbar';
+import LegoLand from './LegoLand';
+import Spaceships from './Spaceships';
+import './Navbar.css';
 import './App.css';
+import './writing-style.css';
+import { useInView } from 'react-intersection-observer';
+import styled, { keyframes } from 'styled-components';
+import Sun from './assets/Random-images/Sun.png';
+import Moon from './assets/Random-images/Moon.png';
+import Arduino from './assets/Random-images/Arduino-board.png';
+import { useState } from 'react';
+
+const slideIn = keyframes`
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+`;
+
+const AnimatedLetter = styled.span`
+  display: inline-block;
+  opacity: 0;
+  animation: ${props => props.inView ? slideIn : 'none'} 1.5s ease-out forwards;
+  animation-delay: ${props => props.delay}s;
+`;
 
 function App() {
+  const [theme, setTheme] = useState('night');
+
+  const toggleTheme = (newTheme) => {
+    setTheme(newTheme);
+  };
+
+  const { ref: aboutRef, inView: aboutInView } = useInView({
+    triggerOnce: false, // Re-trigger the animation every time
+    threshold: 0.1,    // Trigger when 10% of the element is visible
+  });
+
+  const { ref: projectsRef, inView: projectsInView } = useInView({
+    triggerOnce: false,
+    threshold: 0.1,
+  });
+
+  const { ref: contactRef, inView: contactInView } = useInView({
+    triggerOnce: false,
+    threshold: 0.1,
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`App ${theme}`}>
+      <Navbar/>
+      <section id="home">
+        <img src={Sun} alt="Sun" className="sun" onClick={() => toggleTheme('day')} />
+        <img src={Moon} alt="Moon" className="moon" onClick={() => toggleTheme('night')} />
+        <h1>
+          <span className='bigger-name'>Hello,</span> <span className='bigger-name'>I'm</span> <span className="highlight-name">Ales</span>.
+        </h1>
+        <LegoLand />
+        <Spaceships />
+      </section>
+      <section id="about" ref={aboutRef}>
+        <h2>
+          {'About'.split('').map((letter, index) => (
+            <AnimatedLetter key={index} inView={aboutInView} delay={index * 0.2}>
+              {letter}
+            </AnimatedLetter>
+          ))}
+        </h2>
+        {/* Content for About section */}
+      </section>
+      <section id="projects" ref={projectsRef}>
+        <h2>
+          {'Projects'.split('').map((letter, index) => (
+            <AnimatedLetter key={index} inView={projectsInView} delay={index * 0.2}>
+              {letter}
+            </AnimatedLetter>
+          ))}
+        </h2>
+        {/* Content for Projects section */}
+      </section>
+      <section id="contact" ref={contactRef}>
+        <h2>
+          {'Contact'.split('').map((letter, index) => (
+            <AnimatedLetter key={index} inView={contactInView} delay={index * 0.2}>
+              {letter}
+            </AnimatedLetter>
+          ))}
+        </h2>
+        <img src={Arduino} alt="Arduino Board" className="arduino-board" />
+        {/* Content for Contact section */}
+      </section>
     </div>
   );
 }

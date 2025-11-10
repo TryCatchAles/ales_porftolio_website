@@ -1,38 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500&family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
+@font-face {
+  font-family: 'Astro';
+  src: url('./assets/fonts/astro.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* make sizing predictable and avoid unexpected overflow from padding/border */
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0; /* remove default browser margin so background spans full width */
+  -webkit-text-size-adjust: 100%; /* prevent mobile text auto-zoom */
+}
+
+body {
+  overflow-x: hidden; /* prevent horizontal scroll that would expose background edges */
+  background-color: #000; /* ensure edges match the app background to avoid visible page border */
+}
+
+/* Navbar height variable; used to offset page content when navbar is fixed */
+:root { --navbar-height: clamp(72px, 8vh, 130px); }
+
+/* push content below fixed navbar so it's not hidden */
+body { padding-top: var(--navbar-height); }
+
 .App {
+  position: relative;
   text-align: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  min-height: 100vh; /* make App span at least one viewport height */
+  transition: background-image 0.5s ease-in-out;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App.night {
+  background-image: url('./assets/Backgrounds/star-background.jpg');
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.App.day {
+  background-image: url('./assets/Backgrounds/Day-background.png');
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+h1 { 
+  font-family: "Astro", sans-serif;
   color: white;
+  letter-spacing: 3px;
+  padding: 0;
+  margin: clamp(16px, 8vw, 120px) auto 0 auto; /* top margin scales with viewport; centered */
+  background-color: transparent;
+  border-radius: 0;
+  display: block;
+  max-width: 96%;
+  text-align: center;
+  overflow-wrap: break-word;
+  white-space: normal;
+  position: relative;
+  z-index: 10;
+  animation: levitate 8s ease-in-out infinite;
 }
 
-.App-link {
-  color: #61dafb;
+h1 span {
+  color: white;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h1 span:hover {
+  color: #12c46b;
+  text-shadow: 0 0 10px #12c46b, 0 0 20px #12c46b, 0 0 30px #12c46b;
+}
+
+.highlight-name {
+  color: #12c46b;
+  font-weight: bold;
+}
+
+section {
+  min-height: 100vh;
+  padding: 8vh 5% 4vh 5%; /* Use relative paddings so layout adapts to viewport */
+  box-sizing: border-box;
+  scroll-margin-top: 70px; /* Offset for sticky nav */
+}
+
+h2 {
+  font-family: "Astro", sans-serif;
+  font-weight: 700;
+  color: white;
+  font-size: clamp(1.5rem, 6vw, 3.5rem);
+  letter-spacing: clamp(6px, 2.5vw, 20px);
+  text-transform: uppercase;
+  text-align: center;
+  position: relative;
+  text-shadow: 0 0 15px #12c46b; 
+  isolation: isolate; 
+}
+
+#projects h2::after {
+  content: '';
+  position: absolute;
+  left: 36%; 
+  bottom: 15%;
+  height: 35%;
+  width: 32%; 
+  background-color: #8c00ff; 
+  z-index: -1;
+}
+
+
+
+#about h2::after {
+  content: '';
+  position: absolute;
+  left: 43%; 
+  bottom: 15%;
+  height: 35%;
+  width: 19%; 
+  background-color: #8c00ff; 
+  z-index: -1;
+}
+
+#contact h2::after {
+  content: '';
+  position: absolute;
+  left: 38%; 
+  bottom: 15%;
+  height: 35%;
+  width: 28%; 
+  background-color: #8c00ff; 
+  z-index: -1;
+}
+
+.sun, .moon {
+  position: absolute;
+  transition: filter 0.3s ease-in-out;
+  z-index: 10; /* Ensure they are on top */
+}
+
+/* responsive sizes: use clamp(min, preferred, max) so size adapts to device */
+.sun {
+  width: clamp(48px, 8vw, 90px);
+  height: auto;
+}
+.moon {
+  width: clamp(60px, 10vw, 110px);
+  height: auto;
+}
+
+.sun:hover {
+  filter: drop-shadow(0 0 15px #f0e68c); /* Khaki glow for the sun */
+}
+
+.moon:hover {
+  filter: drop-shadow(0 0 15px #add8e6); /* Light blue glow for the moon */
+}
+
+.sun {
+  top: calc(var(--navbar-height) - 10px);
+  left: 20px;
+}
+
+.moon {
+  top: calc(var(--navbar-height) - 10px);
+  right: 20px;
+}
+
+/* Global image and media responsiveness: prevents any media from overflowing */
+img, picture, video, canvas, svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Ensure large decorative containers do not cause horizontal overflow */
+.legoland-container,
+.spaceships-container,
+.App {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Make headings responsive to avoid huge desktop sizes on mobile */
+h1, h2 {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.arduino-board {
+  position: absolute;
+  bottom: 150px;
+  right: 150px;
+  rotate: -30deg;
+  width: clamp(100px, 20vw, 220px);
+  height: auto;
+  z-index: 10;
+  animation: levitate 6s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px #00bfff); /* Deep sky blue glow */
+}
+
+@keyframes levitate {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
 }
