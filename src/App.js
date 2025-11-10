@@ -71,7 +71,14 @@ function App() {
             </AnimatedLetter>
           ))}
         </h2>
-        {/* Content for About section */}
+        <div className="about-content">
+          <p>
+            Computer Engineering student with experience in software development and web technologies. 
+            <br />
+            <br />
+            Passionate about creating innovative solutions and continuously learning new technologies.
+          </p>
+        </div>
       </section>
       <section id="projects" ref={projectsRef}>
         <h2>
@@ -81,6 +88,11 @@ function App() {
             </AnimatedLetter>
           ))}
         </h2>
+        <div className='projects'>
+          <p>
+            To be determined.
+          </p>
+        </div>
         {/* Content for Projects section */}
       </section>
       <section id="contact" ref={contactRef}>
