@@ -9,6 +9,7 @@ import styled, { keyframes } from 'styled-components';
 import Sun from './assets/Random-images/Sun.png';
 import Moon from './assets/Random-images/Moon.png';
 import Arduino from './assets/Random-images/Arduino-board.png';
+import LinkedInLogo from './assets/Random-images/linkedin_image.jpg';
 import { useState } from 'react';
 
 const slideIn = keyframes`
@@ -103,6 +104,16 @@ function App() {
             </AnimatedLetter>
           ))}
         </h2>
+        <div className="contact-content">
+          <a 
+            href="https://www.linkedin.com/in/ales-laiche" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="linkedin-link"
+          >
+            <img src={LinkedInLogo} alt="LinkedIn Profile" className="linkedin-image" />
+          </a>
+        </div>
         <img src={Arduino} alt="Arduino Board" className="arduino-board" />
         {/* Content for Contact section */}
       </section>

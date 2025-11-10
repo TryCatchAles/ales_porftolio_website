@@ -228,6 +228,48 @@ h1, h2 {
   margin-bottom: 0;
 }
 
+/* Contact section styling */
+.contact-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+  position: relative;
+  z-index: 1001;
+}
+
+.linkedin-link {
+  display: inline-block;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  pointer-events: auto;
+  position: relative;
+  z-index: 1001;
+}
+
+.linkedin-link:hover {
+  transform: scale(1.1);
+}
+
+.linkedin-image {
+  width: clamp(60px, 10vw, 100px);
+  height: auto;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  box-shadow: 0 0 10px #12c46b, 0 0 20px #12c46b;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+  filter: drop-shadow(0 0 8px #12c46b);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.linkedin-image:hover {
+  box-shadow: 0 0 15px #12c46b, 0 0 30px #12c46b;
+  filter: drop-shadow(0 0 12px #12c46b) brightness(1.1);
+}
+
 .arduino-board {
   position: absolute;
   bottom: 150px;
