@@ -14,3 +14,13 @@
   /* Make greeting text responsive and larger */
   font-size: clamp(1.2rem, 7vw, 2.6rem);
 }
+
+/* Reduce title size on mobile */
+@media (max-width: 768px) {
+  .bigger-name {
+    font-size: clamp(0.7rem, 3vw, 1.1rem);
+  }
+  .highlight-name {
+    font-size: clamp(0.8rem, 3.5vw, 1.3rem);
+  }
+}

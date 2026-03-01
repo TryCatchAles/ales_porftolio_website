@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
 
+
 @font-face {
   font-family: 'Astro';
   src: url('./assets/fonts/astro.ttf') format('truetype');
@@ -23,8 +24,12 @@ html, body, #root {
 
 body {
   overflow-x: hidden; /* prevent horizontal scroll that would expose background edges */
-  background-color: #000; /* ensure edges match the app background to avoid visible page border */
+  background-color: #000; /* night mode default */
 }
+
+/* Match body background to the active theme so the area behind the fixed navbar is never black */
+body:has(.App.day)   { background-color: #87CEEB; } /* top of the sky gradient */
+body:has(.App.night) { background-color: #000; }
 
 /* Navbar height variable; used to offset page content when navbar is fixed */
 :root { --navbar-height: clamp(72px, 8vh, 130px); }
@@ -44,11 +49,11 @@ body { padding-top: var(--navbar-height); }
 }
 
 .App.night {
-  background-image: url('./assets/Backgrounds/star-background.jpg');
+  background: transparent;
 }
 
 .App.day {
-  background-image: url('./assets/Backgrounds/Day-background.png');
+  background: transparent;
 }
 
 h1 { 
@@ -88,7 +93,7 @@ section {
   min-height: 100vh;
   padding: 8vh 5% 4vh 5%; /* Use relative paddings so layout adapts to viewport */
   box-sizing: border-box;
-  scroll-margin-top: 70px; /* Offset for sticky nav */
+  scroll-margin-top: var(--navbar-height); /* Offset for sticky nav */
 }
 
 h2 {
@@ -164,12 +169,12 @@ h2 {
 }
 
 .sun {
-  top: calc(var(--navbar-height) - 10px);
+  top: calc(var(--navbar-height) - 30px);
   left: 20px;
 }
 
 .moon {
-  top: calc(var(--navbar-height) - 10px);
+  top: calc(var(--navbar-height) - 30px);
   right: 20px;
 }
 
@@ -224,6 +229,119 @@ h1, h2 {
   text-shadow: 0 0 10px #12c46b, 0 0 20px #12c46b, 0 0 30px #12c46b;
 }
 
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1100px;
+  margin: 40px auto 0;
+  padding: 0 20px;
+}
+
+.project-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(18, 196, 107, 0.3);
+  border-radius: 16px;
+  padding: 36px 28px;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 20px rgba(18, 196, 107, 0.3);
+}
+
+.project-card h3 {
+  font-family: "Audiowide", sans-serif;
+  font-size: clamp(1.1rem, 3vw, 1.7rem);
+  color: #12c46b;
+  margin: 0 0 8px 0;
+  text-shadow: 0 0 15px #12c46b, 0 0 30px #12c46b, 0 0 50px #12c46b, 0 0 70px #12c46b;
+}
+
+.project-card .project-tech {
+  font-family: "Audiowide", sans-serif;
+  font-size: clamp(0.8rem, 1.8vw, 1rem);
+  color: #8c00ff;
+  margin-bottom: 14px;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 3px #8c00ff;
+}
+
+.project-card .project-desc {
+  font-family: "Audiowide", sans-serif;
+  font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+  color: #e0e0e0;
+  line-height: 1.6;
+  margin-bottom: 18px;
+  text-shadow: 0 0 6px #12c46b, 0 0 12px #12c46b;
+}
+
+.project-card .project-link {
+  display: inline-block;
+  font-family: "Audiowide", sans-serif;
+  font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+  color: #12c46b;
+  text-decoration: none;
+  border: 1px solid #12c46b;
+  padding: 8px 18px;
+  border-radius: 8px;
+  background: rgba(18, 196, 107, 0.1);
+  transition: background 0.3s ease, color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.project-card .project-link:hover {
+  background: #12c46b;
+  color: #000;
+  text-shadow: none;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 12px #12c46b, 0 0 24px rgba(18, 196, 107, 0.4);
+}
+
+.project-card.coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  border-style: dashed;
+  opacity: 0.5;
+}
+
+.project-card.coming-soon h3 {
+  color: #888;
+  text-align: center;
+}
+
+.project-badge {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  border: 2px solid rgba(18, 196, 107, 0.5);
+  box-shadow: 0 0 8px rgba(18, 196, 107, 0.3);
+}
+
+.project-badge-plain {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: contain;
+  object-position: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
 .about-content p:last-child {
   margin-bottom: 0;
 }
@@ -253,7 +371,7 @@ h1, h2 {
 }
 
 .linkedin-image {
-  width: clamp(60px, 10vw, 100px);
+  width: clamp(44px, 7vw, 72px);
   height: auto;
   border: none;
   outline: none;
@@ -270,9 +388,24 @@ h1, h2 {
   filter: drop-shadow(0 0 12px #12c46b) brightness(1.1);
 }
 
+.github-image {
+  width: clamp(44px, 7vw, 72px);
+  height: auto;
+  border-radius: 20px;
+  background: #1a1a2e;
+  padding: 10px;
+  box-sizing: border-box;
+  filter: drop-shadow(0 0 8px #12c46b);
+  transition: filter 0.3s ease;
+}
+
+.linkedin-link:hover .github-image {
+  filter: drop-shadow(0 0 14px #12c46b) brightness(1.15);
+}
+
 .arduino-board {
   position: absolute;
-  bottom: 150px;
+  bottom: 340px;
   right: 150px;
   rotate: -30deg;
   width: clamp(100px, 20vw, 220px);
@@ -292,5 +425,40 @@ h1, h2 {
     100% {
         transform: translateY(0px);
     }
+}
+
+/* ===== Day mode text overrides (projects only) ===== */
+.App.day .project-card {
+  background: rgba(255, 255, 255, 0.35);
+  border-color: rgba(18, 196, 107, 0.4);
+}
+
+.App.day .project-card:hover {
+  box-shadow: 0 0 20px rgba(18, 196, 107, 0.3);
+}
+
+.App.day .project-card h3 {
+  text-shadow: 0 0 4px rgba(18, 196, 107, 0.4);
+}
+
+.App.day .project-card .project-desc {
+  color: #ff6b1a;
+  text-shadow: 0 0 6px rgba(255, 107, 26, 0.5), 0 0 12px rgba(255, 107, 26, 0.3);
+}
+
+.App.day .project-card .project-link {
+  color: #12c46b;
+  border-color: #12c46b;
+  background: rgba(18, 196, 107, 0.1);
+}
+
+.App.day .project-card .project-link:hover {
+  background: #12c46b;
+  color: #fff;
+  box-shadow: 0 0 12px #12c46b, 0 0 24px rgba(18, 196, 107, 0.4);
+}
+
+.App.day .project-card.coming-soon h3 {
+  color: #555;
 }
 

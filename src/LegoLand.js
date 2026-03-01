@@ -16,9 +16,9 @@ const LegoLand = () => {
     return (
         <div className="legoland-container">
             <div className="green-blocks">
-                <img src={green2x1} alt="Green 2x1" style={{ top: '30%', left: '15%' }} />
+                <img src={green2x1} alt="Green 2x1" style={{ top: '30%', left: '2%' }} />
                 <img src={green2Corner} alt="Green 2 Corner" style={{ top: '50%', left: '10%' }} />
-                <img src={green3x1} alt="Green 3x1" style={{ top: '70%', left: '20%' }} />
+                <img src={green3x1} alt="Green 3x1" style={{ top: '70%', left: '3%' }} />
                 <img src={greenPlate} alt="Green Plate" style={{ top: '90%', left: '10%' }} />
             </div>
             <div className="purple-blocks">
