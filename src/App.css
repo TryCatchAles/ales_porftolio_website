@@ -122,6 +122,16 @@ h2 {
 
 
 
+#about {
+  position: relative;
+  overflow: hidden;
+}
+
+#projects {
+  position: relative;
+  overflow: hidden;
+}
+
 #about h2::after {
   content: '';
   position: absolute;
@@ -152,7 +162,7 @@ h2 {
 
 /* responsive sizes: use clamp(min, preferred, max) so size adapts to device */
 .sun {
-  width: clamp(48px, 8vw, 90px);
+  width: clamp(60px, 10vw, 110px);
   height: auto;
 }
 .moon {

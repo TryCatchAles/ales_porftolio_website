@@ -4,6 +4,8 @@ import Spaceships from './Spaceships';
 import StarryBackground from './StarryBackground';
 import SunnyBackground from './SunnyBackground';
 import RetroComputer from './RetroComputer';
+import Birds, { ABOUT_BIRDS, PROJECT_BIRDS } from './Birds';
+import Planets from './Planets';
 import './Navbar.css';
 import './App.css';
 import './writing-style.css';
@@ -63,7 +65,7 @@ const AnimatedLetter = styled.span`
 `;
 
 function App() {
-  const [theme, setTheme] = useState('night');
+  const [theme, setTheme] = useState('day');
   const [cloudHighlightedLetters, setCloudHighlightedLetters] = useState(new Set());
   const [showCopied, setShowCopied] = useState('');
   const letterRefs = useRef([]);
@@ -124,6 +126,7 @@ function App() {
     <div className={`App ${theme}`}>
       {theme === 'night' && <StarryBackground />}
       {theme === 'day' && <SunnyBackground />}
+      <Planets show={theme === 'night'} />
       <Navbar/>
       {showCopied && (
         <div style={{
@@ -157,6 +160,7 @@ function App() {
         <Spaceships />
       </section>
       <section id="about" ref={aboutRef}>
+        <Birds show={theme === 'day'} birds={ABOUT_BIRDS} />
         <h2>
           {'About'.split('').map((letter, index) => (
             <AnimatedLetter key={index} inView={aboutInView} delay={index * 0.2}>
@@ -174,6 +178,7 @@ function App() {
         </div>
       </section>
       <section id="projects" ref={projectsRef}>
+        <Birds show={theme === 'day'} birds={PROJECT_BIRDS} />
         <h2>
           {'Projects'.split('').map((letter, index) => (
             <AnimatedLetter key={index} inView={projectsInView} delay={index * 0.2}>
