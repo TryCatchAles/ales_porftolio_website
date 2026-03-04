@@ -68,11 +68,23 @@ function App() {
   const [theme, setTheme] = useState('day');
   const [cloudHighlightedLetters, setCloudHighlightedLetters] = useState(new Set());
   const [showCopied, setShowCopied] = useState('');
+  const [ripple, setRipple] = useState(null); // { x, y, toTheme }
+  const [fading, setFading] = useState(false);
   const letterRefs = useRef([]);
   const animFrameRef = useRef(null);
 
-  const toggleTheme = (newTheme) => {
-    setTheme(newTheme);
+  // When fading becomes true (content invisible), kick off the fade-in after a tick
+  useEffect(() => {
+    if (!fading) return;
+    const t = setTimeout(() => setFading(false), 30);
+    return () => clearTimeout(t);
+  }, [fading]);
+
+  const toggleTheme = (newTheme, e) => {
+    if (newTheme === theme || ripple) return;
+    const x = e ? e.clientX : window.innerWidth / 2;
+    const y = e ? e.clientY : window.innerHeight / 2;
+    setRipple({ x, y, toTheme: newTheme });
   };
 
   // Per-frame check: which title letters overlap with a cloud in screen space
@@ -126,7 +138,28 @@ function App() {
     <div className={`App ${theme}`}>
       {theme === 'night' && <StarryBackground />}
       {theme === 'day' && <SunnyBackground />}
+      {ripple && (
+        <div
+          onAnimationEnd={() => { setTheme(ripple.toTheme); setRipple(null); setFading(true); }}
+          style={{
+            position: 'fixed',
+            top: 0, left: 0, right: 0, bottom: 0,
+            zIndex: 9998,
+            pointerEvents: 'none',
+            background: ripple.toTheme === 'night'
+              ? 'linear-gradient(to bottom, #0a0e27, #16213e, #0f3460)'
+              : 'linear-gradient(to bottom, #87CEEB, #98D8E8, #B4E4F3)',
+            '--rx': `${ripple.x}px`,
+            '--ry': `${ripple.y}px`,
+            animation: 'rippleReveal 0.85s cubic-bezier(0.4, 0, 0.2, 1) forwards',
+          }}
+        />
+      )}
       <Planets show={theme === 'night'} />
+      <div style={{
+        opacity: fading ? 0 : 1,
+        transition: fading ? 'none' : 'opacity 0.7s ease',
+      }}>
       <Navbar/>
       {showCopied && (
         <div style={{
@@ -138,8 +171,8 @@ function App() {
         </div>
       )}
       <section id="home">
-        <img src={Sun} alt="Sun" className="sun" onClick={() => toggleTheme('day')} />
-        <img src={Moon} alt="Moon" className="moon" onClick={() => toggleTheme('night')} />
+        <img src={Sun} alt="Sun" className="sun" onClick={(e) => toggleTheme('day', e)} />
+        <img src={Moon} alt="Moon" className="moon" onClick={(e) => toggleTheme('night', e)} />
         <h1>
           {TITLE_LETTERS.map((letter, idx) => (
             <span
@@ -268,6 +301,7 @@ function App() {
         <img src={Arduino} alt="Arduino Board" className="arduino-board" />
         {/* Content for Contact section */}
       </section>
+      </div>
     </div>
   );
 }

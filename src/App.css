@@ -10,6 +10,12 @@
   font-style: normal;
 }
 
+/* Day ↔ Night ripple reveal */
+@keyframes rippleReveal {
+  from { clip-path: circle(0vmax at var(--rx) var(--ry)); }
+  to   { clip-path: circle(200vmax at var(--rx) var(--ry)); }
+}
+
 /* make sizing predictable and avoid unexpected overflow from padding/border */
 * {
   box-sizing: border-box;
