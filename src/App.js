@@ -18,6 +18,7 @@ import LinkedInLogo from './assets/Random-images/linkedin_image.jpg';
 import GmailIcon from './assets/Random-images/gmail-icon.png';
 import JwtToken from './assets/Random-images/jwt-token.png';
 import LaserPointer from './assets/Random-images/laser-pointer.png';
+import BloomkinImg from './assets/Random-images/bloomkin.png';
 import { useState, useRef, useEffect } from 'react';
 
 // Each character of the title as its own entry so we can track per-letter intersections
@@ -221,6 +222,15 @@ function App() {
         </h2>
         <div className='projects-grid'>
           <div className='project-card' style={{ position: 'relative' }}>
+            <h3>Bloomkin</h3>
+            <p className='project-tech'>Next.js 15, TypeScript, Gemini API, CSS, Three.js, Supabase</p>
+            <p className='project-desc'>
+              A mentor-mentee skill exchange platform where users discover mentors through an AI-powered search, book sessions via Google Calendar and Google Meet, and build reputation through ratings. Features Google OAuth and 3D visual effects with Three.js.
+            </p>
+            <a href="https://github.com/TryCatchAles/Bloomkin" target="_blank" rel="noopener noreferrer" className='project-link'>View on GitHub</a>
+            <img src={BloomkinImg} alt="Bloomkin" className="project-badge-bloomkin" />
+          </div>
+          <div className='project-card' style={{ position: 'relative' }}>
             <h3>Workout Tracker</h3>
             <p className='project-tech'>Java, Spring Boot, Docker, PostgreSQL, HTML/CSS</p>
             <p className='project-desc'>
@@ -237,9 +247,6 @@ function App() {
             </p>
             <a href="https://github.com/TryCatchAles/LaserTab-wireless" target="_blank" rel="noopener noreferrer" className='project-link'>View on GitHub</a>
             <img src={LaserPointer} alt="Laser Pointer" className="project-badge-plain" />
-          </div>
-          <div className='project-card coming-soon'>
-            <h3>Coming Soon</h3>
           </div>
         </div>
       </section>

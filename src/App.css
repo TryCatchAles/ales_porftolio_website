@@ -334,7 +334,7 @@ h1, h2 {
 .project-badge {
   position: absolute;
   bottom: 20px;
-  right: 20px;
+  right: 28px;
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -356,6 +356,29 @@ h1, h2 {
   background: transparent;
   border: none;
   box-shadow: none;
+}
+
+.project-badge-bloomkin {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  object-position: center;
+  background: transparent;
+  border: none;
+  filter: drop-shadow(0 0 6px rgba(120, 220, 120, 0.8)) drop-shadow(0 0 14px rgba(80, 200, 80, 0.5)) drop-shadow(0 0 28px rgba(50, 180, 50, 0.3));
+  animation: bloomkinAura 2.5s ease-in-out infinite;
+}
+
+@keyframes bloomkinAura {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(120, 220, 120, 0.8)) drop-shadow(0 0 14px rgba(80, 200, 80, 0.5)) drop-shadow(0 0 28px rgba(50, 180, 50, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgba(160, 255, 160, 1)) drop-shadow(0 0 22px rgba(100, 230, 100, 0.7)) drop-shadow(0 0 40px rgba(60, 200, 60, 0.4));
+  }
 }
 
 .about-content p:last-child {
